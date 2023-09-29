@@ -1,25 +1,85 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from "./component/Login";
+import Password from "./component/Password";
+import Profile from "./component/Profile";
+import Register from "./component/Register";
+import Recovery from "./component/Recovery";
+import Reset from "./component/Reset";
+import PageNotFound from "./component/PageNotFound";
+//auth middleware...
+import { AuthorizeUser, ProctectRoute } from "./middleware/auth.js";
 
-function App() {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login></Login>,
+  },
+  {
+    path: "/register",
+    element: <Register></Register>,
+  },
+  {
+    path: "/password",
+    element: (
+      <ProctectRoute>
+        <Password />
+      </ProctectRoute>
+    ),
+  },
+  {
+    path: "/profile",
+    element: (
+      <AuthorizeUser>
+        <Profile />
+      </AuthorizeUser>
+    ),
+  },
+  {
+    path: "/recovery",
+    element: (
+      <ProctectRoute>
+        <Recovery />"
+      </ProctectRoute>
+    ),
+  },
+  {
+    path: "reset/",
+    element: <Reset></Reset>,
+  },
+  {
+    path: "*",
+    element: <PageNotFound></PageNotFound>,
+  },
+]);
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <main>
+        <RouterProvider router={router}></RouterProvider>
+      </main>
+      {/* <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/password" element={<Password />} />
+          <Route
+            path="/profile"
+            element={
+              <AuthorizeUser>
+                <Profile />
+              </AuthorizeUser>
+            }
+          />
+          <Route path="/register" element={<Register />} />
+          <Route path="/recovery" element={<Recovery />} />
+          <Route path="/reset" element={<Reset />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </Router> */}
+    </>
   );
-}
+};
 
 export default App;
