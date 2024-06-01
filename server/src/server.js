@@ -1,12 +1,13 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import "./db/conn.js";
+import connectDB from "./db/conn.js";
 // import connect from "./db/conn.js";
 import router from "./routers/router.js";
 const app = express();
 const port = process.env.PORT || 8000;
 import dotenv from "dotenv";
+connectDB();
 dotenv.config();
 
 // ######## MIDDLEWARE ############

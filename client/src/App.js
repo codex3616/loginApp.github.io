@@ -45,7 +45,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "reset/",
+    path: "/reset",
     element: <Reset></Reset>,
   },
   {
